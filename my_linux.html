@@ -1,11 +1,73 @@
-<!DOCTYPE html>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN">
 <html>
 <head>
-<link rel="Stylesheet" type="text/css" href="style.css">
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 <title>DobMa's Linux</title>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link rel="stylesheet" type="text/css" href="style/main.css" />
+<link type="text/css" rel="stylesheet" href="style/shCore.css"/>
+<link type="text/css" rel="stylesheet" href="style/shCoreRDark.css"/>
+<script type="text/javascript" src="js/jquery.js"></script>
+<!--For code highlighting-->
+<script type="text/javascript" src="js/shCore.js"></script>
+<script type="text/javascript" src="js/shBrushPlain.js"></script>
+<script type="text/javascript" src="js/shBrushVim.js"></script>
+<script type="text/javascript" src="js/shBrushBash.js"></script>
+<script type="text/javascript" src="js/shBrushCss.js"></script>
+<script type="text/javascript" src="js/shBrushJava.js"></script>
+<script type="text/javascript" src="js/shBrushJScript.js"></script>
+<script type="text/javascript" src="js/shBrushPython.js"></script>
+<script type="text/javascript" src="js/shBrushSql.js"></script>
+<script type="text/javascript" src="js/shBrushXml.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function() {
+		SyntaxHighlighter.all();
+		if (window.innerWidth >= 460) {
+		var toggler = $('<div class="toggler" title="Toggle Table Of Content">Table Of Content</div>');
+		toc = $('.toc');
+		toc.wrap('<div class="tocWrap">');
+
+		$('.tocWrap').prepend(toggler)
+		.delay(500)
+		.fadeTo(500, '0.7')
+		.hover(function() {
+			$(this).stop().fadeTo(300, '0.9');
+			}, function() {
+			$(this).stop().fadeTo(300, '0.7');
+			});
+
+		$('html').keypress(function(e) {
+			if (e.shiftKey && (e.charCode || e.keyCode) == '90') {
+			e.preventDefault();
+			$('div.tocWrap').toggle(200);
+			}
+			});
+
+		toggler.click(function() {
+				$('div.toc').slideToggle(300);
+				});
+		}
+
+		$("a,h1,h2,h3,h4,h5,h6").filter(function(index){
+			return $(this).text()=='!Important!';
+				}).addClass("importantMarker");
+
+		
+
+});
+
+
+
+</script>
 </head>
-<body>
+<body >
+<header id="header">
+<div id="logo" style="font-size: 22pt;text-align:center;">
+<a href="index.html">DobMa's Person Page</a>
+</div>
+</header>
+<div id="wrap">
+<div id="content">
 
 <div id="Linux"><h1 id="Linux">Linux</h1></div>
 <div id="Linux-Linux 基础"><h2 id="Linux 基础">Linux 基础</h2></div>
@@ -31,7 +93,7 @@ minor表示次版本号；为偶数时表示该内核为稳定发布版本
 patchlevel表示对当前内核版本的修订次数
 
 <li>
-例如：kernel2.0.30
+例如：kernel 2.0.30
 
 <li>
 版本信息：/proc/version 文件中
@@ -179,10 +241,10 @@ options：
 -G：指定用户的附加组
 
 <li>
-例如增加一用户wendy UID为1888 家目录/home/oracle，shell为/bin/sh
-
-<li>
-# useradd –u1888 –d/home/oracle –s/bin/sh wendy
+例如增加一用户wendy UID为1888 家目录/home/oracle，shell为/bin/sh 
+<pre>
+# useradd –u1888 –d/home/oracle –s/bin/sh wendy 
+</pre>
 
 <li>
 <em>2.</em> 修改用户：usermod [options] username
@@ -210,9 +272,9 @@ options：
 
 <li>
 例如修改用户wendy UID为1000 家目录/oracle，shell为/bin/bash
-
-<li>
+<pre>
 # usermod –u 1000 –d  /oracle –s /bin/bash -m wendy
+</pre>
 
 <li>
 <em>3.</em> 增加用户组：groupadd [options] groupname
@@ -225,9 +287,9 @@ options
 
 <li>
 例如增加用户组grp UID为1001
-
-<li>
+<pre>
 # groupadd –g 1001 grp
+</pre>
 
 <li>
 <em>4.</em> 删除用户：userdel [options]username
@@ -240,9 +302,9 @@ options
 
 <li>
 例如删除用户wendy及家目录
-
-<li>
+<pre>
 # userdel –r wendy
+</pre>
 
 </ul>
 </ul>
@@ -338,17 +400,18 @@ ubuntu下创建快捷方式
 <ul>
 <li>
 /usr/share/applications/	//快捷方式所在目录
-<pre 	[Desktop Entry] //每个desktop文件都以这个标签开始，说明这是一个Desktop Entry文件>
-	Version = 1.0 //标明Desktop Entry的版本（可选）
-	Name = Firefox //程序名称（必须），这里以创建一个Firefox的快捷方式为例
-	GenericName = Web Browser //程序通用名称（可选）
-	Comment = A Web Browser //程序描述（可选）
-	Exec = firefox %u //程序的启动命令（必选），可以带参数运行,当下面的Type为Application，此项有效
-	Icon = firefox //设置快捷方式的图标（可选）
-	Terminal = false //是否在终端中运行（可选），当Type为Application，此项有效
-	Type = Application //desktop的类型（必选），常见值有“Application”和“Link”
-	Categories = GNOME;Application;Network; //注明在菜单栏中显示的类别（可选）
-	Categories=Development;
+<pre>
+[Desktop Entry] //每个desktop文件都以这个标签开始，说明这是一个Desktop Entry文件
+Version = 1.0 //标明Desktop Entry的版本（可选）
+Name = Firefox //程序名称（必须），这里以创建一个Firefox的快捷方式为例
+GenericName = Web Browser //程序通用名称（可选）
+Comment = A Web Browser //程序描述（可选）
+Exec = firefox %u //程序的启动命令（必选），可以带参数运行,当下面的Type为Application，此项有效
+Icon = firefox //设置快捷方式的图标（可选）
+Terminal = false //是否在终端中运行（可选），当Type为Application，此项有效
+Type = Application //desktop的类型（必选），常见值有“Application”和“Link”
+Categories = GNOME;Application;Network; //注明在菜单栏中显示的类别（可选）
+Categories=Development;
 </pre>
 
 <li>
@@ -356,15 +419,16 @@ ubuntu下创建快捷方式
 
 <li>
 例如：
-<pre 	[Desktop Entry]>
-    Encoding=UTF-8
-    Name=Eclipse
-    Comment=Eclipse SDK
-    Exec=/opt/eclipse/eclipse
-    Icon=/opt/eclipse/icon.xpm
-    Terminal=false
-    Type=Application
-    Categories=Development;
+<pre>
+[Desktop Entry]
+Encoding=UTF-8
+Name=Eclipse
+Comment=Eclipse SDK
+Exec=/opt/eclipse/eclipse
+Icon=/opt/eclipse/icon.xpm
+Terminal=false
+Type=Application
+Categories=Development;
 </pre>
 
 </ul>
@@ -782,21 +846,21 @@ tar -c|x|u|r|t[z|j][v] -f&lt;压缩包名&gt;[未打包文件]
 
 <li>
 <em>1.</em> 将当前目录下的全部文件压缩到test.tar.gz中
-
-<li>
-tar -czvf test.tar.gz *
+<pre>
+# tar -czvf test.tar.gz *
+</pre>
 
 <li>
 <em>2.</em> 列出压缩包test.tar.gz的内容，但不解压
-
-<li>
-tar -tzvf test.tar.gz
+<pre>
+# tar -tzvf test.tar.gz
+</pre>
 
 <li>
 <em>3.</em> 将test.tar.gz解压到当前目录
-
-<li>
-tar -xzvf test.tar.gz
+<pre>
+# tar -xzvf test.tar.gz
+</pre>
 
 </ul>
 </ul>
@@ -921,18 +985,12 @@ hh：mm表示在hh：mm时刻执行
 <ul>
 <li>
 例如：
-
-<li>
-sudo shutdown -h now 立即关闭系统
-
-<li>
-sudo shutdown -h +10 &amp; 十分钟后关机，并后台执行的方式运行
-
-<li>
-sudo shutdown -h 23：30 在23：30时关闭系统
-
-<li>
-sudo shutdown -c 取消shutdown命令
+<pre>
+# sudo shutdown -h now //立即关闭系统
+# sudo shutdown -h +10 &amp; //十分钟后关机，并后台执行的方式运行
+# sudo shutdown -h 23：30 //在23：30时关闭系统
+# sudo shutdown -c //取消shutdown命令
+</pre>
 
 </ul>
 </ul>
@@ -1017,7 +1075,7 @@ apt-cache查询软件包信息
 <em>1.</em> apt-cache 子命令 [选项] [软件]
 
 <li>
-_1.1_子命令
+<em>1.1</em> 子命令
 
 <li>
 search搜索所需的软件包
@@ -1032,7 +1090,7 @@ stats查询软件源信息
 <em>2.</em> apt-get 子命令 [选项] [软件]
 
 <li>
-_2.1_子命令
+<em>2.1</em> 子命令
 
 <li>
 update更新软件源
@@ -1084,9 +1142,9 @@ dist-upgrade升级系统
 
 <li>
 <em>5.</em> 为apt-get配置更新源
-
-<li>
-sudo gedit /etc/apt/sources.list
+<pre>
+# sudo gedit /etc/apt/sources.list
+</pre>
 
 </ul>
 </ul>
@@ -1112,12 +1170,10 @@ more命令，grep命令
 
 <li>
 使用grep命令搜索所需进程
-
-<li>
-ps -e | more 所出结果分页显示
-
-<li>
-ps -e | firefox 搜索firefox进程
+<pre>
+$ ps -e | more //所出结果分页显示
+$ ps -e | firefox //搜索firefox进程
+</pre>
 
 </ul>
 <li>
@@ -1288,15 +1344,11 @@ netmask子网掩码    gw指定路由的网关    dev强迫路由链指定接口
 <ul>
 <li>
 禁用\启用触摸板
+<pre>
+# sudo rmmod psmouse//禁用
+# sudo modprobe psmouse //启用
+</pre>
 
-<ul>
-<li>
-sudo rmmod psmouse    禁用
-
-<li>
-sudo modprobe psmouse 启用
-
-</ul>
 </ul>
 <li>
 其他命令
@@ -1342,7 +1394,10 @@ you should type ^D when you have done
 
 </ul>
 <li>
-ntpdate cn.pool.ntp.org 从ntp服务器获取网络时间
+ntpdate - update the time
+<pre>
+# ntpdate cn.pool.ntp.org //从ntp服务器获取网络时间
+</pre>
 
 </ul>
 <li>
@@ -1366,5 +1421,12 @@ sudo: unable to resolve host DobMa
 </ul>
 </ol>
 
+</div>
+</div>
+<div id="footer">
+<p>
+© 2016 DobMa
+</p>
+</div>
 </body>
 </html>
