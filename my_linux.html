@@ -1,0 +1,1370 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="Stylesheet" type="text/css" href="style.css">
+<title>DobMa's Linux</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body>
+
+<div id="Linux"><h1 id="Linux">Linux</h1></div>
+<div id="Linux-Linux 基础"><h2 id="Linux 基础">Linux 基础</h2></div>
+<div id="Linux-Linux 基础-基本常识"><h3 id="基本常识">基本常识</h3></div>
+<ol>
+<li>
+Linux将设备都当成文件来处理
+
+<li>
+Linux的内核版本号
+
+<ul>
+<li>
+major.minor.patchlevel
+
+<li>
+major表示主版本号
+
+<li>
+minor表示次版本号；为偶数时表示该内核为稳定发布版本
+
+<li>
+patchlevel表示对当前内核版本的修订次数
+
+<li>
+例如：kernel2.0.30
+
+<li>
+版本信息：/proc/version 文件中
+
+<li>
+可以使用命令，查看系统内核版本号及系统名称
+
+<li>
+方法一：uname -a
+
+<li>
+方法二：cat /proc/version
+
+</ul>
+<li>
+Linux用户和用户组的概念
+
+<ul>
+<li>
+id命令可以显示目前登录账户的有效用户ID和组ID，以及所属分组及用户名。
+
+<li>
+用户
+
+<ul>
+<li>
+用户是能够获取系统资源的权限的集合.
+
+<li>
+<em>1.</em> linux用户的分类
+
+<li>
+管理员root:具有使用系统所有权限的用户,其UID为0.
+
+<li>
+普通用户:即一般用户,其使用系统的权限受限,其UID为500-60000之间.
+
+<li>
+系统用户:保障系统运行的用户,一般不提供密码登录系统,其UID为1-499之间.
+
+<li>
+<em>2.</em> 与用户有关的文件/etc/passwd，/etc/shadow
+
+<li>
+/etc/passwd文件
+
+<li>
+其格式：account：password：UID:GID:GECOS:diretory:shell
+
+<li>
+account:用户名或帐号
+
+<li>
+password：用户密码占位符
+
+<li>
+UID：用户的ID号
+
+<li>
+GID：用户所在组的ID号
+
+<li>
+GECOS:用户的详细信息（如姓名，年龄，电话等）
+
+<li>
+diretory：用户所的家目录
+
+<li>
+shell：用户所在的编程环境
+
+<li>
+/etc/shadow:其格式
+
+<li>
+account：password：最近更改密码的日期：密码不可更该的天数：密码需要重新更改的天数：密码更改前的警告期限：密码过期的宽限时间：帐号失效日期：保留
+
+</ul>
+<li>
+用户组
+
+<ul>
+<li>
+<em>1.</em> 用户组分类
+
+<li>
+普通用户组:可以加入多个用户
+
+<li>
+系统组:一般加入一些系统用户
+
+<li>
+私有组(也称基本组):当创建用户时,如果没有为其指明所属组,则就为其定义一个私有的用户组,起名称与用户名同名.
+
+<li>
+注:私有组可以变成普通用户组,当把其他用户加入到该组中,则其就变成了普通组
+
+<li>
+<em>2.</em> 组是权限的容器
+
+<li>
+如普通用户 a,b,c 所属组grp,则它们会继承组grp的权限
+
+<li>
+<em>3.</em> 与组有关的文件:/etc/group，/etc/gshadow
+
+<li>
+/etc/group文件：其格式:group_name:passwoerd:GID:user_list
+
+<li>
+group_name:组名
+
+<li>
+passwoerd:组密码
+
+<li>
+GID:组的ID号
+
+<li>
+user_list：以group_name为附加组的用户列表
+
+</ul>
+<li>
+修改用户及用户组的命令：useradd，usermod， groupdd，userdel
+
+<ul>
+<li>
+<em>1.</em> 增加用户：useradd [options] username
+
+<li>
+options：
+
+<li>
+-u ：UID
+
+<li>
+-g ：GID
+
+<li>
+-d ：指定用户家目录，默认是/home/username
+
+<li>
+-s ：指定用户所在的shell环境
+
+<li>
+-G：指定用户的附加组
+
+<li>
+例如增加一用户wendy UID为1888 家目录/home/oracle，shell为/bin/sh
+
+<li>
+# useradd –u1888 –d/home/oracle –s/bin/sh wendy
+
+<li>
+<em>2.</em> 修改用户：usermod [options] username
+
+<li>
+options：
+
+<li>
+-u ：UID
+
+<li>
+-g ：GID
+
+<li>
+-d ：指定用户家目录，默认是/home/username
+
+<li>
+-m 与-b 一起用表示把用户家目录的内容也移走
+
+<li>
+-s ：指定用户所在的shell环境
+
+<li>
+-G：指定用户的附加组
+
+<li>
+例如修改用户wendy UID为1000 家目录/oracle，shell为/bin/bash
+
+<li>
+# usermod –u 1000 –d  /oracle –s /bin/bash -m wendy
+
+<li>
+<em>3.</em> 增加用户组：groupadd [options] groupname
+
+<li>
+options
+
+<li>
+-g ：GID
+
+<li>
+例如增加用户组grp UID为1001
+
+<li>
+# groupadd –g 1001 grp
+
+<li>
+<em>4.</em> 删除用户：userdel [options]username
+
+<li>
+options
+
+<li>
+-r ：连同家目录一起删除
+
+<li>
+例如删除用户wendy及家目录
+
+<li>
+# userdel –r wendy
+
+</ul>
+</ul>
+<li>
+安装目录
+
+<ul>
+<li>
+一般程序的安装文件都在/usr/share/下；
+
+<ul>
+<li>
+可运行程序一般在/usr/bin/下；
+
+<li>
+库在/usr/lib/下。
+
+</ul>
+<li>
+自己下载的压缩包或者编译的包，有些可以选择安装目录，
+
+<ul>
+<li>
+一般放在/usr/local/
+
+<li>
+也有在/opt/下
+
+</ul>
+</ul>
+<li>
+grub配置文件
+
+<ul>
+<li>
+grub的配置文件
+
+<ul>
+<li>
+主要是/boot/grub/grub.conf
+
+<li>
+/boot/grub/menu.list是这个文件的软连接（soft link）。
+
+</ul>
+<li>
+grub2文件结构
+
+<ul>
+<li>
+/boot/grub/grub.cfg文件
+
+<li>
+/etc/grub.d/文件夹
+
+<li>
+/etc/default/grub文件
+
+</ul>
+</ul>
+<li>
+Linux下的文件
+
+<ul>
+<li>
+~/.bash_history
+
+<ul>
+<li>
+存放了shell的历史命令。
+
+</ul>
+<li>
+/etc/shadow
+
+<ul>
+<li>
+为加密的口令文件，其中用户登录项的第六个字段为用户的起始目录。
+
+</ul>
+</ul>
+<li>
+Linux登录过程中加载配置文件顺序
+
+<ul>
+<li>
+/etc/profile → /etc/profile.d/*.sh → ~/.bash_profile → ~/.bashrc → [/etc/bashrc]
+
+</ul>
+<li>
+ubuntu下创建快捷方式
+
+<ul>
+<li>
+/usr/share/applications/	//快捷方式所在目录
+<pre 	[Desktop Entry] //每个desktop文件都以这个标签开始，说明这是一个Desktop Entry文件>
+	Version = 1.0 //标明Desktop Entry的版本（可选）
+	Name = Firefox //程序名称（必须），这里以创建一个Firefox的快捷方式为例
+	GenericName = Web Browser //程序通用名称（可选）
+	Comment = A Web Browser //程序描述（可选）
+	Exec = firefox %u //程序的启动命令（必选），可以带参数运行,当下面的Type为Application，此项有效
+	Icon = firefox //设置快捷方式的图标（可选）
+	Terminal = false //是否在终端中运行（可选），当Type为Application，此项有效
+	Type = Application //desktop的类型（必选），常见值有“Application”和“Link”
+	Categories = GNOME;Application;Network; //注明在菜单栏中显示的类别（可选）
+	Categories=Development;
+</pre>
+
+<li>
+保存，后把文件改位"XXXX.desktop",设置属性为可运行勾上。
+
+<li>
+例如：
+<pre 	[Desktop Entry]>
+    Encoding=UTF-8
+    Name=Eclipse
+    Comment=Eclipse SDK
+    Exec=/opt/eclipse/eclipse
+    Icon=/opt/eclipse/icon.xpm
+    Terminal=false
+    Type=Application
+    Categories=Development;
+</pre>
+
+</ul>
+</ol>
+<div id="Linux-Linux 基础-基本命令"><h3 id="基本命令">基本命令</h3></div>
+<ol>
+<li>
+＄表示shell接受普通用户权限可执行的命令；
+
+<ul>
+<li>
+#表示shell可执行管理员权限的命令。
+
+</ul>
+<li>
+shell命令
+
+<ul>
+<li>
+command[-options][arg1][arg2]...[arg/V]
+
+<li>
+command表示命令名
+
+<li>
+-options表示相应命令的选项
+
+<li>
+arg1到arg/V表示命令的参数。
+
+<li>
+命令行采用空格来分隔每个元素。
+
+</ul>
+<li>
+通常
+
+<ul>
+<li>
+选项名称是完整的英文字符串，选项名称前面都会有两个连接符号“--”，如--help；
+
+<li>
+选项名称为一个字符是，选项名称前面会有一个连接符号“-”，如-f。-f--force一样。
+
+</ul>
+<li>
+组合键
+
+<ul>
+<li>
+ctrl+a：将光标移动到命令行的开始位置
+
+<li>
+ctrl+e：将光标移动到命令行的末尾位置
+
+<li>
+ctrl+c：删除整行，并换到下一新行
+
+<li>
+ctrl+l：清屏，并从屏幕的最上面开始新的一行
+
+<li>
+ctrl+d：文件结束标志
+
+<li>
+ctrl+s：锁定终端
+
+<li>
+ctrl+q：恢复锁定的终端
+
+<li>
+ctrl+u：删除光标前的内容
+
+<li>
+ctrl+k：删除光标后的内容
+
+</ul>
+<li>
+man命令
+
+<li>
+cd命令
+
+<ul>
+<li>
+.表示当前的工作目录
+
+<li>
+..表示当前工作目录的上一级目录
+
+<li>
+~表示当前使用shell用户的主文件夹
+
+<li>
+-表示返回到上次执行cd命令之前的目录
+
+</ul>
+<li>
+ls命令
+
+<ul>
+<li>
+-a或者—all表示显示指定目录下的所有文件和目录
+
+<li>
+-l将文件和目录的详细信息列出来
+
+<li>
+-R递归显示下级子目录
+
+</ul>
+<li>
+touch命令
+
+<ul>
+<li>
+用来修改文件的创建时间或修改时间。
+
+<li>
+若文件不存在，则会自动添加一个空文件。
+
+</ul>
+<li>
+echo命令
+
+<ul>
+<li>
+echo "XXX"&gt;newfile
+
+<li>
+将字符串“XXX”输入一个名为newfile的新文件中。
+
+</ul>
+<li>
+cat命令
+
+<ul>
+<li>
+显示文件的内容
+
+</ul>
+<li>
+mkdir命令
+
+<ul>
+<li>
+创建目录
+
+<li>
+-m或者—mode设置权限模式
+
+</ul>
+<li>
+复制命令cp
+
+<ul>
+<li>
+复制文件或目录
+
+<li>
+-n不要覆盖已存在的文件（-i使用时失效）
+
+<li>
+-i覆盖前询问
+
+<li>
+-r递归拷贝(复制目录下的所有文件和子目录)
+
+<li>
+cp[选项] 源文件 目标文件
+
+</ul>
+<li>
+移动命令mv
+
+<ul>
+<li>
+mv为文件或目录改名，或将文件移动
+
+<li>
+-n不要覆盖已存在的文件
+
+<li>
+mv [选项] 源文件 目标文件
+
+<li>
+mv [选项] 源文件.. 目录
+
+</ul>
+<li>
+rm命令
+
+<ul>
+<li>
+删除文件或目录
+
+<li>
+-r递归删除目录及其内容
+
+<li>
+-i删除前确认
+
+</ul>
+<li>
+rmdir命令
+
+<ul>
+<li>
+只能删除空目录
+
+</ul>
+<li>
+pwd命令
+
+<ul>
+<li>
+显示当前路径。
+
+</ul>
+<li>
+fsck 命令来查看Linux文件系统上的磁盘碎片情况
+
+<li>
+diff命令
+
+<ul>
+<li>
+diff test1.txt test2.txt
+
+<li>
+该命令用来逐行比较两个文本文件的内容，并列出两个文件中不同的行；
+
+<li>
+若执行结果为空，说明相比较的两个文件完全一致。
+
+</ul>
+<li>
+chmod命令
+
+<ul>
+<li>
+chmod [options] mode files
+
+<li>
+Options
+
+<ul>
+<li>
+-c只输出被改变文件的信息
+
+<li>
+-R，--recursive可递归遍历子目录，把修改应到目录下所有文件和子目录
+
+</ul>
+<li>
+mode可以是数字形式或以who opcode permission形式表示。
+
+<ul>
+<li>
+<em>1.</em> who
+
+<li>
+u文件或目录的当前用户
+
+<li>
+g文件或目录的当前群组
+
+<li>
+o其他之外的用户和群组
+
+<li>
+a所有用户和群组（默认）
+
+<li>
+<em>2.</em> opcode
+
+<li>
++增加权限
+
+<li>
+-删除权限
+
+<li>
+=重新分配权限
+
+<li>
+<em>3.</em> permission
+
+<li>
+r读取权限
+
+<li>
+w写入权限
+
+<li>
+x执行权限
+
+<li>
+-不具有任何权限
+
+<li>
+s特殊权限
+
+<li>
+4读 2写 1执行
+
+<li>
+<em>4.</em> 例如：
+
+<li>
+wop形式：chmod u+x file给file的当前用户增加执行权限
+
+<li>
+数字形式：chmod 751 file给file的u分配读写执行权限，g分配读执行权限，o分配执行权限；与chmod u=rwx，g=rx，o=x file命令相同
+
+</ul>
+</ul>
+<li>
+gzip命令
+
+<ul>
+<li>
+默认时gzip命令将源文件压缩为gz文件，并删除源文件
+
+<li>
+-v输出处理信息
+
+<li>
+-d解压缩指定文件
+
+</ul>
+<li>
+rar命令
+
+<ul>
+<li>
+rar &lt;子命令&gt; [选项] 操作文档 [文件..] [解压路径]
+
+<li>
+子命令
+
+<ul>
+<li>
+a添加文档到操作目录（压缩）
+
+<li>
+d从文档中删除文件
+
+<li>
+e将文档解压到当前目录（如果解压路径不写）
+
+</ul>
+<li>
+选项
+
+<ul>
+<li>
+--df文档操作后删除源文件
+
+<li>
+--p设定密码
+
+<li>
+-t压缩完毕后进行完整性检验
+
+</ul>
+</ul>
+<li>
+tar命令
+
+<ul>
+<li>
+tar命令支持tar、gz、bz2
+
+<li>
+tar -c|x|u|r|t[z|j][v] -f&lt;压缩包名&gt;[未打包文件]
+
+<li>
+-c创建压缩文件
+
+<ul>
+<li>
+-x解压缩文件
+
+<li>
+-u仅转换比备份文件新的内容
+
+<li>
+-r新增文件至已存在压缩包的结尾部分
+
+<li>
+-t列出压缩包的内容
+
+<li>
+-A将tar文件添加到压缩包中
+
+</ul>
+<li>
+-z使用gz压缩格式
+
+<ul>
+<li>
+-j使用bz2压缩格式
+
+</ul>
+<li>
+-v显示过程
+
+<li>
+-f&lt;压缩包名&gt;归档文件的文件名
+
+<ul>
+<li>
+例如：
+
+<li>
+<em>1.</em> 将当前目录下的全部文件压缩到test.tar.gz中
+
+<li>
+tar -czvf test.tar.gz *
+
+<li>
+<em>2.</em> 列出压缩包test.tar.gz的内容，但不解压
+
+<li>
+tar -tzvf test.tar.gz
+
+<li>
+<em>3.</em> 将test.tar.gz解压到当前目录
+
+<li>
+tar -xzvf test.tar.gz
+
+</ul>
+</ul>
+<li>
+adduser命令
+
+<ul>
+<li>
+--home在指定目录下建立所有的用户登录目录
+
+<li>
+--ingroup指定用户组
+
+<li>
+sudo adduser sunny建立名为sunny的主目录
+
+<li>
+sudo adduser --ingroup sunny sommy建立名为sommy用户，添加到sunny组中
+
+</ul>
+<li>
+su命令
+
+<ul>
+<li>
+ubuntu下默认不允许root用户直接登陆，但可以从一个比root级别低，比普通用户级别高的用户使用：
+
+<li>
+sudo su将用户身份变更为root超级用户的身份
+
+<li>
+sudo选项
+
+<li>
+-b将要执行的命令放到背景中执行
+
+<li>
+-s执行环境变量中的SHELL所指定的shell
+
+<li>
+-H将环境变量中的HOME指定为要变更身份的用户家目录（若不加-u，则是系统管理者root）
+
+<li>
+sudo -sH进入root超级用户的操作环境
+
+</ul>
+<li>
+login命令
+
+<ul>
+<li>
+login [用户名]
+
+<li>
+切换用户，需要输入两次密码
+
+</ul>
+<li>
+logout命令
+
+<ul>
+<li>
+退出系统，返回到系统登录界面
+
+</ul>
+<li>
+halt命令
+
+<ul>
+<li>
+-f强制关闭系统
+
+<li>
+-i在执行halt命令之前关闭全部的网络接口
+
+<li>
+-p在halt命令之后执行poweroff命令
+
+<li>
+sudo halt -p 直接关闭系统
+
+</ul>
+<li>
+shutdown命令
+
+<ul>
+<li>
+shutdown [选项] [-t 秒数] 时间 [警告信息]
+
+<li>
+选项
+		-c取消前一个shutdown命令
+
+<ul>
+<li>
+-h将系统关机
+
+<li>
+-k只是送出信息给用户，不会真正关机
+
+<li>
+-r关机之后重新启动
+
+</ul>
+<li>
+-t 秒数 设置送出警告信息和关机信号之间要延迟多少秒
+
+<li>
+时间：多久后执行shutdown命令
+
+<ul>
+<li>
++m表示在m分钟后执行
+
+<li>
+hh：mm表示在hh：mm时刻执行
+
+</ul>
+<li>
+警告信息 传送给所有登录用户的信息
+
+<ul>
+<li>
+例如：
+
+<li>
+sudo shutdown -h now 立即关闭系统
+
+<li>
+sudo shutdown -h +10 &amp; 十分钟后关机，并后台执行的方式运行
+
+<li>
+sudo shutdown -h 23：30 在23：30时关闭系统
+
+<li>
+sudo shutdown -c 取消shutdown命令
+
+</ul>
+</ul>
+<li>
+reboot命令
+
+<ul>
+<li>
+reboot[选项] 重启系统
+
+<li>
+reboot -n 保存数据后重启
+
+</ul>
+<li>
+deb软件包命令
+
+<ul>
+<li>
+通过deb软件包管理机制，可以生成两种类型的软件包：二进制软件包（deb），源码包（deb-src）
+
+<ul>
+<li>
+deb软件包命名规范：
+
+<li>
+程序名_版本号-修订版本号_计算机架构.deb
+
+<li>
+软件包状态：
+
+<li>
+用户不断安装、卸载软件包，为了记录用户的行为，对软件包定义了两种状态：期望状态和当前状态。
+
+</ul>
+<li>
+dpkg命令
+
+<ul>
+<li>
+dpkg [选项] filename
+
+<li>
+-l查询系统中已安装的软件包的信息
+
+<li>
+-L查询指定软件包的路径信息
+
+<li>
+-s查询已安装的指定软件包的信息
+
+<li>
+-i安装指定的软件包
+
+<li>
+-I查询未安装的指定软件包的信息
+
+<li>
+-c罗列出软件包的所有文件
+
+<li>
+-r删除指定软件包，但不删除配置文件
+
+<li>
+-P删除指定软件包，删除配置文件
+
+<li>
+deb安装包安装的程序默认安装在文件：配置文件在/etc目录，可执行文件在/usr/bin目录，文档在/usr/share/man目录中。
+
+</ul>
+<li>
+apt命令
+
+<ul>
+<li>
+apt-get用于管理软件包，包括下载、安装、删除和升级等操作
+
+<li>
+apt-cache查询软件包信息
+
+<li>
+<em>1.</em> apt-cache 子命令 [选项] [软件]
+
+<li>
+_1.1_子命令
+
+<li>
+search搜索所需的软件包
+
+<li>
+depends查询指定软件包的依赖关系
+
+<li>
+stats查询软件源信息 
+
+<li>
+<em>2.</em> apt-get 子命令 [选项] [软件]
+
+<li>
+_2.1_子命令
+
+<li>
+update更新软件源
+
+<li>
+upgrade升级系统中的所有软件包
+
+<li>
+install下载所需软件包并进行安装
+
+<li>
+remove删除指定软件包
+
+<li>
+source下载源码包
+
+<li>
+dist-upgrade升级系统
+
+<li>
+<em>3.</em> 选项
+
+<li>
+-d下载软件包，但是不安装
+
+<li>
+-f修复已安装的应用程序
+
+<li>
+--purge与remove一起使用，清楚软件包
+
+<li>
+--reinstall与install一起使用，重新安装软件包
+
+<li>
+-b在下载完源码包后，编译生成相应的软件包
+
+<li>
+<em>4.</em> apt-get详解
+
+<li>
+通过apt-get命令下载的软件包，放在/var/cache/apt/archives 目录下
+
+<li>
+下载文件位置可以在/etc/apt/source.list文件中指定
+
+<li>
+通过apt-get autoclean 命令就可以删除存放在该地的软件包
+
+<li>
+<em>5.</em> 为apt-get配置更新源
+
+<li>
+sudo gedit /etc/apt/sources.list
+
+</ul>
+</ul>
+<li>
+进程管理命令
+
+<ul>
+<li>
+ps命令
+
+<ul>
+<li>
+ps[选项]
+
+<li>
+-A显示所有进程，等价与-e
+
+<li>
+more命令，grep命令
+
+<li>
+使用more命令进行分布
+
+<li>
+使用grep命令搜索所需进程
+
+<li>
+ps -e | more 所出结果分页显示
+
+<li>
+ps -e | firefox 搜索firefox进程
+
+</ul>
+<li>
+kill命令
+
+<ul>
+<li>
+kill[选项]PID
+
+<li>
+-l显示信号的名称列表
+
+<li>
+当直接指定PID无法结束进程时，使用-9选项，代表传送出SIGKILL信号
+
+<li>
+ps aux | grep firefox查看firefox进程的信息
+
+</ul>
+<li>
+top命令
+
+<ul>
+<li>
+动态显示进程命令
+
+<li>
+选项
+
+<li>
+-d N，-d 3 表示两次刷新时间间隔为3秒
+
+<li>
+-q表示top没有任何延迟地进行刷新
+
+<li>
+子命令
+
+<li>
+k终止一个进程。在top界面中按下K键，界面中显示“PID to Kill”，输入需要终止进程的PID（查看PID，使用”shift+,”向下翻阅，使用“shift+。”向上翻阅），按下回车，界面中显示“Kill PID XXX with signal [15]”输入信号，按下回车。
+
+<li>
+P根据CPU使用百分比大小进行排序
+
+<li>
+M根据驻留内存大小进行排序
+
+<li>
+U根据用户过滤进程信息
+
+</ul>
+<li>
+nice命令
+
+<ul>
+<li>
+设置程序的谦让度
+
+</ul>
+</ul>
+<li>
+作业控制命令
+
+<ul>
+<li>
+&amp;
+
+<ul>
+<li>
+在命令后加&amp;，将作业以后台作业的方式运行
+
+</ul>
+<li>
+ctrl+z
+
+<ul>
+<li>
+将前台作业暂停放置于后台
+
+</ul>
+<li>
+jobs命令
+
+<ul>
+<li>
+查看后台作业
+
+<li>
+-l列出作业的所有属性
+
+<li>
+-r仅显示在后台运行的作业
+
+<li>
+-s仅显示在后台暂停的作业
+
+</ul>
+<li>
+fg命令
+
+<ul>
+<li>
+将后台作业切换到前台
+
+</ul>
+<li>
+bg命令
+
+<ul>
+<li>
+激活暂停的后台作业
+
+</ul>
+</ul>
+<li>
+网络管理命令
+
+<ul>
+<li>
+ifconfig命令
+
+<ul>
+<li>
+ifconfig显示网卡信息
+
+<li>
+启动网卡ifconfig eth0 up
+
+<li>
+设置网卡IP和掩码ifconfig eth0 192.168.1.1 netmask 255.255.255.0
+
+<li>
+修改只是暂时的，重启后就不起作用了
+
+</ul>
+<li>
+netstat命令
+
+<ul>
+<li>
+显示路由表netstat -r
+
+<li>
+显示接口表netstat -i
+
+</ul>
+<li>
+route命令
+
+<ul>
+<li>
+route [add] [net|host] targetaddress [netmask Nm][dev If]
+
+<li>
+route [delete] [net|host] targetaddress [gw Gw] [netmask Nm][dev If]
+
+<li>
+add增加路由    delete删除路由   net路由到达的网络    host路由到达的主机
+
+<li>
+netmask子网掩码    gw指定路由的网关    dev强迫路由链指定接口
+
+</ul>
+</ul>
+<li>
+模块功能相关命令
+
+<ul>
+<li>
+禁用\启用触摸板
+
+<ul>
+<li>
+sudo rmmod psmouse    禁用
+
+<li>
+sudo modprobe psmouse 启用
+
+</ul>
+</ul>
+<li>
+其他命令
+
+<ul>
+<li>
+who - show who is logged on
+
+<li>
+mesg - control write access to your terminal
+
+<ul>
+<li>
+set 'no' for root user that it's useless
+
+</ul>
+<li>
+write — send a message to another user
+
+<ul>
+<li>
+write user [tty]
+
+</ul>
+<li>
+wall — write a message to users
+
+<ul>
+<li>
+wall [-n] [-t TIMEOUT] [file]
+
+<li>
+displays the contents of file or, 
+
+<li>
+by default, its standard input,
+
+<li>
+so,if you use standard input,
+
+<li>
+you should type ^D when you have done
+
+</ul>
+<li>
+ntpdate cn.pool.ntp.org 从ntp服务器获取网络时间
+
+</ul>
+<li>
+其他经验
+
+<ul>
+<li>
+系统提示
+
+<ul>
+<li>
+sudo: unable to resolve host DobMa
+
+<li>
+解决方法：/etc/hosts
+
+<li>
+添加 127.0.0.1	DobMa
+
+</ul>
+</ul>
+</ol>
+
+</body>
+</html>
