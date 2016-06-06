@@ -1,0 +1,4 @@
+%title DobMa-I'm a boy
+= Notebook =
+== [[my_linux|Linux]] ==
+== [[my_window|Window]] ==
