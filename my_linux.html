@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<title>DobMa's Linux</title>
+<title>DobMa's GNU</title>
 <link rel="stylesheet" type="text/css" href="style/main.css" />
 <link type="text/css" rel="stylesheet" href="style/shCore.css"/>
 <link type="text/css" rel="stylesheet" href="style/shCoreRDark.css"/>
@@ -68,6 +68,37 @@ $(document).ready(function() {
 </header>
 <div id="wrap">
 <div id="content">
+
+<div id="Contents" class="toc"><h1 id="Contents">Contents</h1></div>
+<ul>
+<li>
+<a href="my_linux.html#Linux">Linux</a>
+
+<ul>
+<li>
+<a href="my_linux.html#Linux-Linux 基础">Linux 基础</a>
+
+<ul>
+<li>
+<a href="my_linux.html#Linux-Linux 基础-基本常识">基本常识</a>
+
+<li>
+<a href="my_linux.html#Linux-Linux 基础-基本命令">基本命令</a>
+
+<li>
+<a href="my_linux.html#Linux-Linux 基础-基本工具">基本工具</a>
+
+<ul>
+<li>
+<a href="my_linux.html#Linux-Linux 基础-基本工具-VI 编辑器">VI 编辑器</a>
+
+</ul>
+<li>
+<a href="my_linux.html#Linux-Linux 基础-C Program">C Program</a>
+
+</ul>
+</ul>
+</ul>
 
 <div id="Linux"><h1 id="Linux">Linux</h1></div>
 <div id="Linux-Linux 基础"><h2 id="Linux 基础">Linux 基础</h2></div>
@@ -1420,6 +1451,183 @@ sudo: unable to resolve host DobMa
 </ul>
 </ul>
 </ol>
+<div id="Linux-Linux 基础-基本工具"><h3 id="基本工具">基本工具</h3></div>
+<div id="Linux-Linux 基础-基本工具-VI 编辑器"><h4 id="VI 编辑器">VI 编辑器</h4></div>
+<ol>
+<li>
+VI有三种基本的工作模式：命令模式、插入模式、末行命令模式。
+
+<li>
+命令模式--插入模式：i、a、o；插入模式--命令模式：Esc
+
+<li>
+命令模式--末行命令模式：输入冒号(:)；末行命令模式--命令模式：Esc
+
+<li>
+命令模式
+
+<ul>
+<li>
+启动vi编辑器后的初始模式。
+
+<li>
+使用隐式命令的形式来对文档的内容进行编辑、移动光标和滚动屏幕，不接收键盘输入编辑文档。
+
+<li>
+h光标左移，同行中移动；backspace光标左移，同段中移动
+
+<li>
+l光标右移，同行中移动；space光标右移，同段中移动
+
+<li>
+k光标上移一行
+
+<li>
+j光标下移一行；或者enter
+
+<li>
+w光标右移至下一个字字首；或者e
+
+<li>
+b光标左移至下一个字字首
+
+<li>
+(光标移至句首
+
+<li>
+)光标移至句尾
+
+<li>
+{光标移至段首
+
+<li>
+}光标移至段尾
+
+<li>
+nG光标移至第n行行首
+
+<li>
+H光标移至屏幕顶行   M光标移至屏幕中间   L光标移至屏幕最后行
+
+<li>
+dd删除当前光标所在行
+
+<li>
+x删除当前光标前字符
+
+<li>
+yy复制当前光标所在行到缓冲区
+
+<li>
+p将缓冲区字符粘贴到光标所在位置
+
+<li>
+/pattern从光标所在位置向文件尾搜索第一个pattern
+
+<li>
+?pattern从光标所在位置向文件首搜索第一个pattern
+
+</ul>
+<li>
+插入模式
+
+<ul>
+<li>
+只有在插入模式下才可以进行文字的输入操作。
+
+<li>
+从命令向插入模式切换的命令：
+
+<li>
+i从光标所在位置前插入新的字符；I从光标所在行的行首开始插入新的字符
+
+<li>
+a从光标坐在位置的下一个字符前插入新的字符；A从光标所在行的行尾开始插入新的字符
+
+<li>
+o新增加一行，并将光标移动到上一行的开头插入字符；O在当前行上面增加一行,并将光标移动到上一行的开头处
+
+</ul>
+<li>
+末行命令模式
+
+<ul>
+<li>
+:n1,n2 co n3将n1行到n2行之间的内容复制到n3行下
+
+<li>
+:n1,n2 m n3将n1行到n2行之间的内容移动到n3行下
+
+<li>
+:n1,n2 d将n1行到n2行之间的内容删除
+
+<li>
+:w保存当前文件
+
+<li>
+:w!强行保存当前文件
+
+<li>
+:e!将文件还原到最原始的状态
+
+<li>
+:x保存当前文件并退出或者：wq
+
+<li>
+:q退出VIM/VI
+
+<li>
+:q!不保存并强制退出VIM/VI
+
+<li>
+:r[filename]将filename文件内容加到光标所在行的后面
+
+<li>
+:set nu在文件中显示行号
+
+<li>
+:%!xxd   ----&gt;切换到十六进制显示
+
+<li>
+:%!xxd -r ----&gt;切回文本方式显示
+
+</ul>
+<li>
+VIM/VI命令
+
+<ul>
+<li>
+vim/vi [选项] [文件列表]
+
+<li>
++num打开时将光标移动到num行，第一个文件
+
+<li>
+-oN打开N个窗口；多窗口之间切换ctrl+w+j组合键
+
+</ul>
+<li>
+VIM Promote
+
+<ul>
+<li>
+This is my <em>.vimrc</em> file,<a href="&#47;home&#47;biaomd&#47;vimwiki&#47;doc&#47;vim&#47;vimrc">file:./doc/vim/vimrc</a>,i use the <em>Vundle</em> to manage my vim plugin
+
+<li>
+You can take the command:
+<pre>
+:BundleList -列举出列表中(.vimrc中)配置的所有插件
+:BundleInstall -安装列表中全部插件
+:BundleInstall! -更新列表中全部插件
+:BundleSearch foo -查找foo插件
+:BundleSearch! foo -刷新foo插件缓存
+:BundleClean -清除列表中没有的插件
+:BundleClean! -清除列表中没有的插件
+</pre>
+
+</ul>
+</ol>
+<div id="Linux-Linux 基础-C Program"><h3 id="C Program">C Program</h3></div>
 
 </div>
 </div>
