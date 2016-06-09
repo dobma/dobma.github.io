@@ -204,7 +204,7 @@ blockquote p:last-child {margin-bottom:0;}
 .toc {
     display: none;
     overflow: auto;
-    overflow-x: hidden;
+    overflow-x: hideen;
     border: 1px solid #4CBCE7;
     border-radius: 0 0 1px 1px;
     -moz-border-radius: 0 0 1px 1px;
